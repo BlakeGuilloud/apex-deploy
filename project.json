@@ -1,0 +1,8 @@
+{
+  "name": "apex-deploy",
+  "description": "",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::055809122680:role/apex-deploy_lambda_function",
+  "environment": {}
+}
