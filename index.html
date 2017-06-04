@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guest book</title>
+</head>
+<body>
+
+  <h1>Latest entries:</h1>
+  <div id="entries"></div>
+
+  <h3>New Entry:</h3>
+  <form action="">
+    <label for="msg">Message</label>
+    <input id="msg" type="text">
+
+    <button id="submit-button">Submit</button>
+  </form>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+  <script>
+    const API_URL = 'https://0tfkobmn6c.execute-api.us-west-2.amazonaws.com/prod/entries';
+
+    function renderEntries(data) {
+      $('#entries').html('');
+
+      data.Items.map(item => $('#entries').append(`<p>${item.message}</p>`));
+    }
+
+    $(document).ready(function() {
+      $.ajax({
+        type: 'GET',
+        url: API_URL,
+        success: renderEntries
+      });
+    });
+
+    $('#submit-button').on('click', () => {
+      $.ajax({
+        type: 'POST',
+        url: API_URL,
+        data: JSON.stringify({ message: $('#msg').val() }),
+        contentType: 'application/json',
+        success: function() {
+          location.reload();
+        }
+      });
+
+      return false;
+    })
+  </script>
+</body>
+</html>

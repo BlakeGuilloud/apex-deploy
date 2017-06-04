@@ -5,7 +5,7 @@ exports.handle = function(e, ctx, cb) {
   const params = {
     Item: {
       date: Date.now(),
-      message: e.data.message
+      message: e.message
     },
     TableName: 'guestbook'
   };
